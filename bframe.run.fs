@@ -12,7 +12,7 @@ builder.Services
     .AddSingleton<ScriptLoaderService>()
     .AddSingleton<MetadataReferenceService.BlazorWasm.BlazorWasmMetadataReferenceService>()
 builder.AddFunBlazor("#app", html.inject(fun (js : IJSRuntime, sv : ScriptLoaderService) -> task {
-    let! data = js.GetValueAsync<string>("window.frameElement.lastChild.data")
+    let! data = js.InvokeAsync<string>("getInit")
     let! asm = sv.CompileToDLLAssembly(data, "", true, SourceCodeKind.Script)
     let! result = asm.GetType("Script").GetMethod("<Factory>").Invoke(null, [| [| null; null |] |]) :?> Task<obj>
     return pre { result.ToString() }
