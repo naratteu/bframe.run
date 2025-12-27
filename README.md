@@ -27,7 +27,37 @@ data uri 에 즉시 작동하는(!) 코드를 담아 공유할수도 있습니�
 data:text/html;charset=utf-8;base64,PGlmcmFtZSBvbmxvYWQ9ImltcG9ydCgnaHR0cHM6Ly9uYXJhdHRldS5naXRodWIuaW8vYmZyYW1lLnJ1bi9jc3gubWpzJykudGhlbihtID0+IG0uaW5pdCh0aGlzKSkiPlN5c3RlbS5Db25zb2xlLldyaXRlTGluZSgiSGVsbG8sIFdvcmxkISIpOyJIZWxsbywgQ3NoYXJwISI8L2lmcmFtZT4=
 ```
 
+### local 배포예시
 
+```bash
+dotnet publish -o ./bin/pub && (
+cd ./bin/pub
+cat <<EOF > ./test.html
+<iframe src="./wwwroot/csx.html">
+    System.Console.WriteLine("Hello, World!");
+    "Hello, Csharp!"
+</iframe>
+EOF
+npx serve .)
+```
+
+### ipfs 배포예시
+
+```bash
+dotnet publish -o ./bin/pub && (
+cd ./bin/pub
+rm -r ./bframe.run
+mv ./wwwroot ./bframe.run
+cat <<EOF > ./test.html
+<iframe src="./bframe.run/csx.html">
+    System.Console.WriteLine("Hello, World!");
+    "Hello, Csharp!"
+</iframe>
+EOF
+ipfs add -r . | grep pub$ | awk '{print "https://ipfs.io/ipfs/" $2 "/test.html"}'
+ipfs add -qr . | ipfs routing provide)
+```
+https://ipfs.io/ipfs/QmRSPovZ9e5FUBWgLAuMT8jhZcunQcHB8c613En4J3q7ZD/test.html
 
 ## todo
 
