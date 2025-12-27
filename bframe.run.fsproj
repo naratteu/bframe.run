@@ -6,8 +6,10 @@
 		<WasmFingerprintAssets>false</WasmFingerprintAssets>
 	</PropertyGroup>
 	<ItemGroup>
+		<Compile Include="ScriptLoaderService.fs" />
 		<Compile Include="bframe.run.fs" />
-		<ProjectReference Include="./CsharpHelper/CsharpHelper.csproj" />
+        <PackageReference Include="MetadataReferenceService.BlazorWasm" Version="0.0.1" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
 		<PackageReference Include="Fun.Blazor.Wasm" Version="4.1.*" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.*" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.*" PrivateAssets="all" />

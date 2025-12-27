@@ -1,4 +1,6 @@
-﻿open BlazorWASMScriptLoader
+﻿module bframe.run
+
+open BlazorWASMScriptLoader
 open Fun.Blazor
 open Microsoft.AspNetCore.Components.WebAssembly.Hosting
 open Microsoft.CodeAnalysis
@@ -13,7 +15,7 @@ builder.Services
     .AddSingleton<MetadataReferenceService.BlazorWasm.BlazorWasmMetadataReferenceService>()
 builder.AddFunBlazor("#app", html.inject(fun (js : IJSRuntime, sv : ScriptLoaderService) -> task {
     let! data = js.InvokeAsync<string>("getInit")
-    let! asm = sv.CompileToDLLAssembly(data, "", true, SourceCodeKind.Script)
+    let! asm = sv.CompileToDLLAssembly(data, SourceCodeKind.Script)
     let! result = asm.GetType("Script").GetMethod("<Factory>").Invoke(null, [| [| null; null |] |]) :?> Task<obj>
-    return pre { result.ToString() }
+    return pre { $"{result}" }
 })).Build().RunAsync()
