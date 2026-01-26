@@ -2,7 +2,6 @@
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
 		<PublishTrimmed>false</PublishTrimmed>
-		<CompressionEnabled>false</CompressionEnabled>
 		<WasmFingerprintAssets>false</WasmFingerprintAssets>
 	</PropertyGroup>
 	<ItemGroup>
